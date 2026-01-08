@@ -1,11 +1,13 @@
 <template>
-  <h1>Lego</h1>
-  <HelloWorld msg="Lego" />
-  <a-button type="primary">Primary Button</a-button>
+  <template-detail />
 </template>
 
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
+import TemplateDetail from './views/TemplateDetail.vue';
+export default defineComponent({
+  components: {
+    TemplateDetail,
+  },
+});
 </script>
-
-<style scoped></style>
