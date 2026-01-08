@@ -2,17 +2,14 @@
   <div class="work-detail-container">
     <a-row type="flex" justify="center">
       <a-col :span="8" class="cover-img">
-        <img
-          src="https://static.imooc-lego.com/upload-files/screenshot-889755.png"
-          alt=""
-        />
+        <img :src="template.coverImg" alt="" />
       </a-col>
       <a-col :span="8">
-        <h2>前端架构师直播海报</h2>
-        <p>如何突破前端成长瓶颈？</p>
+        <h2>{{ template.title }}</h2>
+        <p>{{ template.title }}</p>
         <div class="author">
           <a-avatar>V</a-avatar>
-          该模版由 <b>Viking</b> 创作
+          该模版由 <b>{{ template.author }}</b> 创作
         </div>
         <div class="bar-code-area">
           <span>扫一扫，手机预览</span>
@@ -30,8 +27,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-export default defineComponent({});
+import { computed, defineComponent } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
+import type { GlobalDataProps, TemplateProps } from '@/store';
+
+export default defineComponent({
+  setup() {
+    const router = useRoute();
+    const store = useStore<GlobalDataProps>();
+    const currentId = router.params.id as string;
+    const template = computed<TemplateProps>(() =>
+      store.getters.getTemplateById(parseInt(currentId))
+    );
+
+    return {
+      template,
+    };
+  },
+});
 </script>
 
 <style scoped>
